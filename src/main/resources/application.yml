@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: favorite-place
+  profiles:
+    include: db #DB 설정
+
