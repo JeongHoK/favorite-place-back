@@ -3,6 +3,7 @@ package com.favorite.place.controller;
 import com.favorite.place.dto.UserDTO;
 import com.favorite.place.entity.User;
 import com.favorite.place.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/user/join")
-    public void joinUser(@RequestBody UserDTO userDTO) {
+    public void joinUser(@Valid @RequestBody UserDTO userDTO) {
         User user = User.builder()
                             .name(userDTO.getName())
                             .password(passwordEncoder.encode(userDTO.getPassword()))
