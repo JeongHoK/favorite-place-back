@@ -19,7 +19,9 @@ public class PlaceOfficialPhoto {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(columnDefinition="TEXT")
     private String photoLocation;
-    private boolean delYn;
+
+    private boolean delYn = false;
 
 }

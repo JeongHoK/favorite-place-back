@@ -16,6 +16,8 @@ public class UserGPS {
     private User user;
 
     private double longitude;
+
     private double latitude;
-    private boolean delYn;
+
+    private boolean delYn = false;
 }

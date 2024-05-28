@@ -18,17 +18,36 @@ public class Place {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(length = 64)
     private String placeName;
+
     private double longitude;
+
     private double latitude;
+
+    @Column(length = 512)
     private String address;
+
+    @Column(length = 256)
     private String detailAddress;
+
+    @Column(length = 16)
     private String callNumber;
+
+    @Column(length = 512)
     private String placeIntroduction;
+
+    @Column(length = 256)
     private String openingHours;
+
+    @Column(length = 256)
     private String regularHoliday;
+
+    @Column(length = 64)
     private String nickName;
-    private boolean delYn;
-    private boolean officialYn;
+
+    private boolean delYn = false;
+
+    private boolean officialYn = false;
 
 }

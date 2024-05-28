@@ -11,7 +11,11 @@ public class Facility {
     @Column(name = "facility_id")
     private Long id;
 
+    @Column(length = 32)
     private String name;
+
+    @Column(columnDefinition="TEXT")
     private String photoLocation;
-    private boolean delYn;
+
+    private boolean delYn = false;
 }

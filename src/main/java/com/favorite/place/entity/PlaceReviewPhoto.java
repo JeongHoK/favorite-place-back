@@ -14,12 +14,17 @@ public class PlaceReviewPhoto {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_review_id")
     private PlaceReview placeReview;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(columnDefinition="TEXT")
     private String photoLocation;
-    private boolean delYn;
+
+    private boolean delYn = false;
 }

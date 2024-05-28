@@ -20,7 +20,12 @@ public class PlaceReview {
     private User user;
 
     private int scope;
+
+    @Column(length = 64)
     private String title;
+
+    @Column(columnDefinition="TEXT")
     private String content;
-    private boolean delYn;
+
+    private boolean delYn = false;
 }

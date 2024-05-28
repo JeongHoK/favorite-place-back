@@ -20,11 +20,21 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @Column(length = 32)
     private String name;
+
+    @Column(length = 16)
     private String phoneNumber;
+
+    @Column(length = 128)
     private String email;
+
+    @Column(length = 128)
     private String password;
+
+    @Column(length = 8)
     private String userRole;
+
     private boolean delYn = false;
 
     @Builder
