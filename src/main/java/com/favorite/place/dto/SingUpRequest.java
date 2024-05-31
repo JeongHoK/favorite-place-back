@@ -2,12 +2,11 @@ package com.favorite.place.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
-public class UserDTO {
+public class SingUpRequest {
 
     @NotNull
     @Length(min = 2, max = 32, message = "이름은 2자 이상 16자 이하여야 합니다.")

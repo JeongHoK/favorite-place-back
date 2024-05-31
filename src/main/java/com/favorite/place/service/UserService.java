@@ -1,8 +1,10 @@
 package com.favorite.place.service;
 
-import com.favorite.place.dto.LoginDTO;
-import com.favorite.place.dto.UserDTO;
+import com.favorite.place.dto.LoginRequest;
+import com.favorite.place.dto.SingUpRequest;
+import com.favorite.place.dto.UserResponse;
 import com.favorite.place.entity.User;
+import com.favorite.place.jwt.JwtTokenProvider;
 import com.favorite.place.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,33 +17,41 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final JwtTokenProvider jwtTokenProvider;
+
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public void joinUser(UserDTO userDTO) {
+    public void singUp(SingUpRequest singupRequest) {
 
         User user = User.builder()
-                .name(userDTO.getName())
-                .password(passwordEncoder.encode(userDTO.getPassword()))
-                .phoneNumber(userDTO.getPhoneNumber())
-                .userRole(userDTO.getUserRole())
-                .email(userDTO.getEmail())
+                .name(singupRequest.getName())
+                .password(passwordEncoder.encode(singupRequest.getPassword()))
+                .phoneNumber(singupRequest.getPhoneNumber())
+                .userRole(singupRequest.getUserRole())
+                .email(singupRequest.getEmail())
                 .build();
 
         userRepository.save(user);
     }
 
-    public User loginUser(LoginDTO loginDTO) {
-        User user = userRepository.findByEmail(loginDTO.getLoginId());
+    public UserResponse login(LoginRequest loginRequest) {
+        User user = userRepository.findByEmail(loginRequest.getLoginId());
 
-        if(user == null || !passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+        if(user == null || !passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("ID 혹은 비밀번호를 다시 확인해주세요.");
         } else {
-            return user;
+            return UserResponse.builder()
+                    .userId(user.getId())
+                    .name(user.getName())
+                    .userRole(user.getUserRole())
+                    .token(jwtTokenProvider.createJwtToken(user.getId(), user.getUserRole()))
+                    .build();
         }
 
     }

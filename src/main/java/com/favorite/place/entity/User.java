@@ -29,7 +29,7 @@ public class User {
     @Column(length = 128)
     private String password;
 
-    @Column(length = 8)
+    @Column(length = 16)
     private String userRole;
 
     private boolean delYn = false;
