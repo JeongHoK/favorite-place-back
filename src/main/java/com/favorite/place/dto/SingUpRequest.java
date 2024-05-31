@@ -2,10 +2,12 @@ package com.favorite.place.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
+@AllArgsConstructor
 public class SingUpRequest {
 
     @NotNull
