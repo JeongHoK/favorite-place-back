@@ -1,7 +1,7 @@
 package com.favorite.place.service;
 
 import com.favorite.place.dto.LoginRequest;
-import com.favorite.place.dto.SingUpRequest;
+import com.favorite.place.dto.SignUpRequest;
 import com.favorite.place.dto.UserResponse;
 import com.favorite.place.entity.User;
 import com.favorite.place.jwt.JwtTokenProvider;
@@ -27,23 +27,23 @@ public class UserService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public void signUp(SingUpRequest singupRequest) {
-        User findByPhoneNumberUser =  userRepository.findByPhoneNumber(singupRequest.getPhoneNumber());
+    public void signUp(SignUpRequest signUpRequest) {
+        User findByPhoneNumberUser =  userRepository.findByPhoneNumber(signUpRequest.getPhoneNumber());
         if(findByPhoneNumberUser != null) {
             throw new IllegalArgumentException("이미 등록된 휴대폰 번호입니다.");
         }
 
-        User findByEmailUser = userRepository.findByEmail(singupRequest.getEmail());
+        User findByEmailUser = userRepository.findByEmail(signUpRequest.getEmail());
         if(findByEmailUser != null) {
             throw new IllegalArgumentException("이미 등록된 이메일니다.");
         }
 
         User user = User.builder()
-                .name(singupRequest.getName())
-                .password(passwordEncoder.encode(singupRequest.getPassword()))
-                .phoneNumber(singupRequest.getPhoneNumber())
-                .userRole(singupRequest.getUserRole())
-                .email(singupRequest.getEmail())
+                .name(signUpRequest.getName())
+                .password(passwordEncoder.encode(signUpRequest.getPassword()))
+                .phoneNumber(signUpRequest.getPhoneNumber())
+                .userRole(signUpRequest.getUserRole())
+                .email(signUpRequest.getEmail())
                 .build();
 
         userRepository.save(user);

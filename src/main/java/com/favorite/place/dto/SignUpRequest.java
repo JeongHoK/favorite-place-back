@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Getter
 @AllArgsConstructor
-public class SingUpRequest {
+public class SignUpRequest {
 
     @NotNull
     @Length(min = 2, max = 32, message = "이름은 2자 이상 16자 이하여야 합니다.")

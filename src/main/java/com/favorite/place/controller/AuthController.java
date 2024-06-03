@@ -1,7 +1,7 @@
 package com.favorite.place.controller;
 
 import com.favorite.place.dto.LoginRequest;
-import com.favorite.place.dto.SingUpRequest;
+import com.favorite.place.dto.SignUpRequest;
 import com.favorite.place.dto.UserResponse;
 import com.favorite.place.service.UserService;
 import jakarta.validation.Valid;
@@ -20,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public void signUp(@Valid @RequestBody SingUpRequest singupRequest) {
+    public void signUp(@Valid @RequestBody SignUpRequest singupRequest) {
 
         userService.signUp(singupRequest);
     }
