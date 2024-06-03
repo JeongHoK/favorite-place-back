@@ -28,6 +28,15 @@ public class UserService {
     }
 
     public void singUp(SingUpRequest singupRequest) {
+        User findByPhoneNumberUser =  userRepository.findByPhoneNumber(singupRequest.getPhoneNumber());
+        if(findByPhoneNumberUser != null) {
+            throw new IllegalArgumentException("이미 등록된 휴대폰 번호입니다.");
+        }
+
+        User findByEmailUser = userRepository.findByEmail(singupRequest.getEmail());
+        if(findByEmailUser != null) {
+            throw new IllegalArgumentException("이미 등록된 이메일니다.");
+        }
 
         User user = User.builder()
                 .name(singupRequest.getName())
