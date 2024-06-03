@@ -19,14 +19,13 @@ public class AuthController {
         this.userService = userService;
     }
 
-
     @PostMapping("/singup")
     public void singUp(@Valid @RequestBody SingUpRequest singupRequest) {
 
         userService.singUp(singupRequest);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public UserResponse login(@Valid @RequestBody LoginRequest loginRequest) {
 
         return userService.login(loginRequest);

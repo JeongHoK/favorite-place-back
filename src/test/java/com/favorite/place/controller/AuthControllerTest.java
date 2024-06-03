@@ -52,7 +52,7 @@ class AuthControllerTest {
 
         String json = objectMapper.writeValueAsString(new LoginRequest("email@email.com", "Testpassword11@@"));
 
-        mockMvc.perform(get("/open/login")
+        mockMvc.perform(post("/open/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isOk())
@@ -60,7 +60,5 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.name", "김정호").exists())
                 .andExpect(jsonPath("$.userRole", "ROLE_USER").exists())
                 .andExpect(jsonPath("$.token").exists());
-
-
     }
 }
