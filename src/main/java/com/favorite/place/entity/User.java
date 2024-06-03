@@ -2,6 +2,9 @@ package com.favorite.place.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +13,8 @@ import java.util.List;
 @Table(name = "tb_user")
 @NoArgsConstructor
 @Getter
+@SQLDelete(sql = "UPDATE tb_user SET is_deleted = true WHERE user_id = ?")
+@SQLRestriction("is_deleted = false")
 public class User {
 
     @Id
@@ -32,7 +37,7 @@ public class User {
     @Column(length = 16)
     private String userRole;
 
-    private boolean delYn = false;
+    private boolean isDeleted;
 
     @Builder
     public User(String name, String phoneNumber, String email, String password, String userRole) {

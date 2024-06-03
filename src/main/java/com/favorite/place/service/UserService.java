@@ -65,6 +65,9 @@ public class UserService {
 
     }
 
+    public void withdraw(Long userId) {
+        userRepository.deleteById(userId);
+    }
 
 
 }
