@@ -48,6 +48,6 @@ public class Place {
 
     private boolean isDeleted;
 
-    private boolean officialYn = false;
+    private boolean isOfficial;
 
 }
