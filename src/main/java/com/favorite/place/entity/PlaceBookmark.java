@@ -20,6 +20,6 @@ public class PlaceBookmark {
     @JoinColumn(name = "place_id")
     private Place place;
 
-    private boolean delYn = false;
+    private boolean isDeleted;
 
 }

@@ -46,7 +46,7 @@ public class Place {
     @Column(length = 64)
     private String nickName;
 
-    private boolean delYn = false;
+    private boolean isDeleted;
 
     private boolean officialYn = false;
 

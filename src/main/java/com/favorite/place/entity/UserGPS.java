@@ -19,5 +19,5 @@ public class UserGPS {
 
     private double latitude;
 
-    private boolean delYn = false;
+    private boolean isDeleted;
 }

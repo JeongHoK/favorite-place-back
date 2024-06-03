@@ -19,6 +19,6 @@ public class PlaceFacility {
     @JoinColumn(name = "facility_id")
     private Facility facility;
 
-    private boolean delYn = false;
+    private boolean isDeleted;
 
 }

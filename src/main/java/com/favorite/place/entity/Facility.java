@@ -17,5 +17,5 @@ public class Facility {
     @Column(columnDefinition="TEXT")
     private String photoLocation;
 
-    private boolean delYn = false;
+    private boolean isDeleted;
 }

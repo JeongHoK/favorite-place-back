@@ -27,5 +27,5 @@ public class PlaceReview {
     @Column(columnDefinition="TEXT")
     private String content;
 
-    private boolean delYn = false;
+    private boolean isDeleted;
 }
