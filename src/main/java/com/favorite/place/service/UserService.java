@@ -27,7 +27,7 @@ public class UserService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public void singUp(SingUpRequest singupRequest) {
+    public void signUp(SingUpRequest singupRequest) {
         User findByPhoneNumberUser =  userRepository.findByPhoneNumber(singupRequest.getPhoneNumber());
         if(findByPhoneNumberUser != null) {
             throw new IllegalArgumentException("이미 등록된 휴대폰 번호입니다.");
