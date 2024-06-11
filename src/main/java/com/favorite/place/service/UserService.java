@@ -3,17 +3,23 @@ package com.favorite.place.service;
 import com.favorite.place.dto.LoginRequest;
 import com.favorite.place.dto.SignUpRequest;
 import com.favorite.place.dto.LoginResponse;
+import com.favorite.place.entity.Place;
 import com.favorite.place.entity.User;
 import com.favorite.place.jwt.JwtTokenProvider;
+import com.favorite.place.repository.PlaceRepository;
 import com.favorite.place.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final PlaceRepository placeRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -21,10 +27,11 @@ public class UserService {
 
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, PlaceRepository placeRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.placeRepository = placeRepository;
     }
 
     public void signUp(SignUpRequest signUpRequest) {
@@ -68,6 +75,12 @@ public class UserService {
     public void withdraw(Long userId) {
         userRepository.deleteById(userId);
     }
+
+    public List<Place> getMyPlace(Long userId) {
+
+        return placeRepository.findByUserIdAndIsDeletedFalse(userId);
+    }
+
 
 
 }

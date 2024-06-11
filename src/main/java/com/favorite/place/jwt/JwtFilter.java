@@ -46,7 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // 사용자 ID 검증
-        if (request.getRequestURI().contains("/user/withdraw/")) {
+        if (request.getRequestURI().contains("/checking")) {
             String[] pathArray = request.getRequestURI().split("/");
             Long pathUserId = Long.parseLong(pathArray[pathArray.length - 1]);
 
