@@ -37,26 +37,23 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public boolean isExpired(String token) {
+    public boolean isExpired(Claims tokenClaims) {
         try {
-            return Jwts.parser()
-                    .verifyWith(secretKey).build()
-                    .parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+            return tokenClaims.getExpiration().before(new Date());
         } catch (Exception e) {
             throw new IllegalArgumentException("로그인 인증에 실패했습니다. 반복적으로 나타날 시 문의바랍니다.");
         }
 
     }
 
-    public Authentication getAuthentication(String accessToken) {
-        Claims tokenClaims = getTokenClaims(accessToken, secretKey);
+    public Authentication getAuthentication(Claims tokenClaims) {
         Long userId = tokenClaims.get("userId", Long.class);
         String userRole = tokenClaims.get("userRole", String.class);
 
         return new UsernamePasswordAuthenticationToken(userId, null, List.of(new SimpleGrantedAuthority(userRole)));
     }
 
-    public Claims getTokenClaims(String token, SecretKey secretKey) {
+    public Claims getTokenClaims(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
     }
 
