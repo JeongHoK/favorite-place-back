@@ -2,7 +2,7 @@ package com.favorite.place.controller;
 
 import com.favorite.place.dto.LoginRequest;
 import com.favorite.place.dto.SignUpRequest;
-import com.favorite.place.dto.UserResponse;
+import com.favorite.place.dto.LoginResponse;
 import com.favorite.place.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public UserResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
 
         return userService.login(loginRequest);
     }

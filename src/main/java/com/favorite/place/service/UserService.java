@@ -2,7 +2,7 @@ package com.favorite.place.service;
 
 import com.favorite.place.dto.LoginRequest;
 import com.favorite.place.dto.SignUpRequest;
-import com.favorite.place.dto.UserResponse;
+import com.favorite.place.dto.LoginResponse;
 import com.favorite.place.entity.User;
 import com.favorite.place.jwt.JwtTokenProvider;
 import com.favorite.place.repository.UserRepository;
@@ -49,13 +49,13 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public UserResponse login(LoginRequest loginRequest) {
+    public LoginResponse login(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getLoginId());
 
         if(user == null || !passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("ID 혹은 비밀번호를 다시 확인해주세요.");
         } else {
-            return UserResponse.builder()
+            return LoginResponse.builder()
                     .userId(user.getId())
                     .name(user.getName())
                     .userRole(user.getUserRole())
