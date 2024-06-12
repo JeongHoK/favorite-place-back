@@ -3,6 +3,7 @@ package com.favorite.place.service;
 import com.favorite.place.dto.LoginRequest;
 import com.favorite.place.dto.SignUpRequest;
 import com.favorite.place.dto.LoginResponse;
+import com.favorite.place.dto.UpdateMyInformationRequest;
 import com.favorite.place.entity.Place;
 import com.favorite.place.entity.User;
 import com.favorite.place.jwt.JwtTokenProvider;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -79,6 +81,19 @@ public class UserService {
     public List<Place> getMyPlace(Long userId) {
 
         return placeRepository.findByUserIdAndIsDeletedFalse(userId);
+    }
+
+    public void updateMyInformation(Long userId, UpdateMyInformationRequest updateMyInformationRequest) {
+        User user = userRepository.findByPhoneNumber(updateMyInformationRequest.getPhoneNumber());
+
+        if(user != null) {
+            throw new IllegalArgumentException("이미 존재하는 휴대폰 번호입니다.");
+        }
+
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        findUser.updateMyInformation(updateMyInformationRequest.getPhoneNumber(), passwordEncoder.encode(updateMyInformationRequest.getPassword()));
+
+        userRepository.save(findUser);
     }
 
 

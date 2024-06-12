@@ -1,7 +1,9 @@
 package com.favorite.place.controller;
 
+import com.favorite.place.dto.UpdateMyInformationRequest;
 import com.favorite.place.entity.Place;
 import com.favorite.place.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +28,14 @@ public class UserController {
 
         return userService.getMyPlace(userId);
     }
+
+    @PutMapping("/checking/updateMyInformation/{userId}")
+    public void updateMyInformation(@PathVariable Long userId, @Valid  @RequestBody UpdateMyInformationRequest updateMyInformationRequest) {
+
+        userService.updateMyInformation(userId, updateMyInformationRequest);
+
+    }
+
 
 
 }

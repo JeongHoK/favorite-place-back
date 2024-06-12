@@ -50,4 +50,9 @@ public class User {
 
     }
 
+    public void updateMyInformation(String phoneNumber, String password) {
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+    }
+
 }
