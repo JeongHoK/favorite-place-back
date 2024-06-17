@@ -20,9 +20,9 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public void signUp(@Valid @RequestBody SignUpRequest singupRequest) {
+    public void signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
 
-        userService.signUp(singupRequest);
+        userService.signUp(signUpRequest);
     }
 
     @PostMapping("/login")
