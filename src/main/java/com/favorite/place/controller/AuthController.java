@@ -6,6 +6,7 @@ import com.favorite.place.dto.LoginResponse;
 import com.favorite.place.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,9 +21,8 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public void signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
-
-        userService.signUp(signUpRequest);
+    public ResponseEntity<String> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
+        return userService.signUp(signUpRequest);
     }
 
     @PostMapping("/login")

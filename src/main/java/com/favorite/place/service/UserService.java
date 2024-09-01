@@ -10,6 +10,9 @@ import com.favorite.place.jwt.JwtTokenProvider;
 import com.favorite.place.repository.PlaceRepository;
 import com.favorite.place.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +39,7 @@ public class UserService {
         this.placeRepository = placeRepository;
     }
 
-    public void signUp(SignUpRequest signUpRequest) {
+    public ResponseEntity<String> signUp(SignUpRequest signUpRequest) {
         User findByPhoneNumberUser =  userRepository.findByPhoneNumber(signUpRequest.getPhoneNumber());
         if(findByPhoneNumberUser != null) {
             throw new IllegalArgumentException("이미 등록된 휴대폰 번호입니다.");
@@ -51,11 +54,13 @@ public class UserService {
                 .name(signUpRequest.getName())
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .phoneNumber(signUpRequest.getPhoneNumber())
-                .userRole(signUpRequest.getUserRole())
+                .userRole("ROLE_USER")
                 .email(signUpRequest.getEmail())
                 .build();
 
         userRepository.save(user);
+
+        return new ResponseEntity<>(HttpStatus.OK.toString(), new HttpHeaders(), HttpStatus.OK);
     }
 
     public LoginResponse login(LoginRequest loginRequest) {

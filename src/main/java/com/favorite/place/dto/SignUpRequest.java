@@ -2,12 +2,15 @@ package com.favorite.place.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignUpRequest {
 
     @NotNull
@@ -22,7 +25,5 @@ public class SignUpRequest {
     @NotNull
     @Length(min = 9, max = 128, message = "비밀번호는 9자 이상 128자 이하여야 합니다.")
     private String password;
-    @NotNull
-    private String userRole;
 
 }
